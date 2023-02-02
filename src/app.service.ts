@@ -10,12 +10,12 @@ export class AppService {
   async botMessage() {
     process.env.NTBA_FIX_319 = '1';
     const { BOT_TOKEN } = process.env;
-    const bot = new TelegramBot(BOT_TOKEN, { polling: true });
-
+    const bot = new TelegramBot(BOT_TOKEN, { polling: false });
     await bot.onText(/^(\/ro)\s?(\d+)?$/i, async function (msg, arg) {
       const chatId = msg.chat?.id;
       const msgId = msg.message_id.toString();
       const userId = msg.from.id.toString();
+
       if (+arg[2] % 6 > 0 || +arg[2] > 168) {
         const message = await bot.sendMessage(
           chatId,
