@@ -11,7 +11,8 @@ export class AppService {
     process.env.NTBA_FIX_319 = '1';
     const { BOT_TOKEN } = process.env;
     const bot = new TelegramBot(BOT_TOKEN, { polling: true });
-    await bot.onText(/^(\/ro)\s?(\d+)?$/i, async function (msg, arg) {
+
+    async function mainLogic(msg, arg) {
       const chatId = msg.chat?.id;
       const msgId = msg.message_id.toString();
       const userId = msg.from.id.toString();
@@ -71,6 +72,8 @@ export class AppService {
           await bot.deleteMessage(chatId, message.message_id.toString());
         }, 60000);
       }
-    });
+    }
+
+    await bot.onText(/^(\/ro)\s?(\d+)?/i, mainLogic);
   }
 }
