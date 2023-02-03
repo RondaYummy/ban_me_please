@@ -6,7 +6,7 @@
        "instances": 1,
        "autorestart": true,
        "exp_backoff_restart_delay": 500,
-       "watch": true,
+       "watch": false,
        "time": true,
        "env": {
          "NODE_ENV": "production"

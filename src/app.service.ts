@@ -103,7 +103,7 @@ export class AppService {
           `${makeRawUserIdLink(
             getFullUserName(msg.from),
             msg.from.id,
-          )}, число має бути кратним 3 % 3 та меншим або дорівнювати 168.`,
+          )}, число має бути кратним 3 та меншим або дорівнювати 168.`,
           { parse_mode: 'Markdown' },
         );
         setTimeout(async () => {
