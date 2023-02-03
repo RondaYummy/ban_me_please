@@ -97,7 +97,7 @@ export class AppService {
       const msgId = msg.message_id.toString();
       const userId = msg.from.id.toString();
 
-      if (+arg[2] % 6 > 0 || +arg[2] > 168) {
+      if (+arg[2] % 3 > 0 || +arg[2] > 168) {
         const message = await bot.sendMessage(
           chatId,
           `${makeRawUserIdLink(
