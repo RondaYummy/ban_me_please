@@ -1,0 +1,16 @@
+{
+   "apps": [
+     {
+       "name": "ban_me_please",
+       "script": "src/main.js",
+       "instances": 1,
+       "autorestart": true,
+       "exp_backoff_restart_delay": 500,
+       "watch": false,
+       "time": true,
+       "env": {
+         "NODE_ENV": "production"
+       }
+     }
+   ]
+ }
