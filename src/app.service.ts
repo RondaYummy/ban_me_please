@@ -89,7 +89,10 @@ export class AppService {
         return err;
       });
 
-      if (+arg[2] % 3 > 0 || +arg[2] > 168) {
+      console.log(+arg[2] % 3 > 0 || +arg[2] > 168);
+      console.log(+arg[2], '+arg[2]');
+
+      if (+arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] === 0) {
         const message = await bot.sendMessage(
           chatId,
           `${makeRawUserIdLink(
