@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as TelegramBot from 'node-telegram-bot-api';
+import { getFullUserName, makeRawUserIdLink } from './bot/utils';
 
 @Injectable()
 export class AppService {
@@ -11,18 +12,6 @@ export class AppService {
     process.env.NTBA_FIX_319 = '1';
     const { BOT_TOKEN } = process.env;
     const bot = new TelegramBot(BOT_TOKEN, { polling: true });
-
-    function getFullUserName(user) {
-      let name = user.first_name;
-      if (user.last_name) {
-        name += `${user.last_name}`;
-      }
-      return name;
-    }
-
-    function makeRawUserIdLink(title: string, id: number) {
-      return `[${title}](tg://user?id=${id})`;
-    }
 
     const callbackQuery = async function onCallbackQuery(callbackQuery) {
       const parseCallBack = JSON.parse(callbackQuery.data);
@@ -58,7 +47,7 @@ export class AppService {
                 `${makeRawUserIdLink(
                   getFullUserName(callbackQuery.from),
                   callbackQuery.from.id,
-                )}, дякуємо вам, що ви звернулись до нас, щоб ми допомогли потушити вашу пожежу, зустрінемось ${fromUnixTime.toLocaleString(
+                )}, дякуємо вам за звернення до нас, щоб ми допомогли погасити вашу пожежу, зустрінемось ${fromUnixTime.toLocaleString(
                   'uk-UA',
                   {
                     timeZone: 'Europe/kiev',
