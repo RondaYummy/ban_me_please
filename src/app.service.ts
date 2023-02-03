@@ -96,6 +96,9 @@ export class AppService {
       const chatId = msg.chat?.id;
       const msgId = msg.message_id.toString();
       const userId = msg.from.id.toString();
+      await bot.deleteMessage(chatId, msgId).catch((err) => {
+        return err;
+      });
 
       if (+arg[2] % 3 > 0 || +arg[2] > 168) {
         const message = await bot.sendMessage(
@@ -111,9 +114,6 @@ export class AppService {
         }, 60000);
         return;
       }
-      await bot.deleteMessage(chatId, msgId).catch((err) => {
-        return err;
-      });
 
       const hour = 3600;
       let date = Math.round(new Date().getTime() / 1000.0);
