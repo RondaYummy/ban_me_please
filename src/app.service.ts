@@ -88,9 +88,8 @@ export class AppService {
       await bot.deleteMessage(chatId, msgId).catch((err) => {
         return err;
       });
-      console.log(1);
 
-      if (+arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] === 0) {
+      if (+arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] <= 0) {
         const message = await bot.sendMessage(
           chatId,
           `${makeRawUserIdLink(
@@ -104,7 +103,6 @@ export class AppService {
         }, 60000);
         return;
       }
-      console.log(2);
 
       const hour = 3600;
       let date = Math.round(new Date().getTime() / 1000.0);
