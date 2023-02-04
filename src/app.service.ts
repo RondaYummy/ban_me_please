@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as TelegramBot from 'node-telegram-bot-api';
-import { getFullUserName, makeRawUserIdLink } from './bot/utils';
+import { getFullUserName, makeRawUserIdLink, rememberUser } from './bot/utils';
 
 @Injectable()
 export class AppService {
@@ -44,9 +44,8 @@ export class AppService {
             if (muted) {
               const message = await bot.sendMessage(
                 chatId,
-                `${makeRawUserIdLink(
-                  getFullUserName(callbackQuery.from),
-                  callbackQuery.from.id,
+                `${rememberUser(
+                  callbackQuery.from,
                 )}, дякуємо вам за звернення до нас, щоб ми допомогли погасити вашу пожежу, зустрінемось ${fromUnixTime.toLocaleString(
                   'uk-UA',
                   {
@@ -62,9 +61,8 @@ export class AppService {
           } else {
             const message = await bot.sendMessage(
               chatId,
-              `${makeRawUserIdLink(
-                getFullUserName(callbackQuery.from),
-                callbackQuery.from.id,
+              `${rememberUser(
+                callbackQuery.from,
               )}, ви - Адміністратор, ви маєте страждати 😈`,
               { parse_mode: 'Markdown' },
             );
@@ -92,9 +90,8 @@ export class AppService {
       if (+arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] <= 0) {
         const message = await bot.sendMessage(
           chatId,
-          `${makeRawUserIdLink(
-            getFullUserName(msg.from),
-            msg.from.id,
+          `${rememberUser(
+            msg.from,
           )}, число має бути кратним 3 та меншим або дорівнювати 168.`,
           { parse_mode: 'Markdown' },
         );
@@ -110,7 +107,7 @@ export class AppService {
 
       const confirmKeyboard = await bot.sendMessage(
         chatId,
-        `${getFullUserName(
+        `${rememberUser(
           msg.from,
         )}, ви дійсно підтверджуєте, що хочете посидіти техенько в цьому чатику ${+arg[2]} годин? 🌚`,
         {

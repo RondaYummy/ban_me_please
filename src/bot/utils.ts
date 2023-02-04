@@ -9,3 +9,7 @@ export function getFullUserName(user) {
 export function makeRawUserIdLink(title: string, id: number) {
   return `[${title}](tg://user?id=${id})`;
 }
+
+export function rememberUser(user) {
+  return `${makeRawUserIdLink(getFullUserName(user), user.id)}`;
+}
