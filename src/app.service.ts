@@ -35,44 +35,28 @@ export class AppService {
       }
 
       if (parseCallBack.a === 'confirmMute') {
-        await bot.getChatMember(chatId, userId).then(async function (data) {
-          if (data.status === 'member') {
-            const muted = await bot.restrictChatMember(chatId, userId, {
-              can_send_messages: false,
-              until_date: parseCallBack.date,
-            });
-            if (muted) {
-              const message = await bot.sendMessage(
-                chatId,
-                `${makeRawUserIdLink(
-                  getFullUserName(callbackQuery.from),
-                  callbackQuery.from.id,
-                )}, дякуємо вам за звернення до нас, щоб ми допомогли погасити вашу пожежу, зустрінемось ${fromUnixTime.toLocaleString(
-                  'uk-UA',
-                  {
-                    timeZone: 'Europe/kiev',
-                  },
-                )} :))`,
-                { parse_mode: 'Markdown' },
-              );
-              setTimeout(async () => {
-                await bot.deleteMessage(chatId, message.message_id.toString());
-              }, 60000);
-            }
-          } else {
-            const message = await bot.sendMessage(
-              chatId,
-              `${makeRawUserIdLink(
-                getFullUserName(callbackQuery.from),
-                callbackQuery.from.id,
-              )}, ви - Адміністратор, ви маєте страждати 😈`,
-              { parse_mode: 'Markdown' },
-            );
-            setTimeout(async () => {
-              await bot.deleteMessage(chatId, message.message_id.toString());
-            }, 60000);
-          }
+        const muted = await bot.restrictChatMember(chatId, userId, {
+          can_send_messages: false,
+          until_date: parseCallBack.date,
         });
+        if (muted) {
+          const message = await bot.sendMessage(
+            chatId,
+            `${makeRawUserIdLink(
+              getFullUserName(callbackQuery.from),
+              callbackQuery.from.id,
+            )}, дякуємо вам за звернення до нас, щоб ми допомогли погасити вашу пожежу, зустрінемось ${fromUnixTime.toLocaleString(
+              'uk-UA',
+              {
+                timeZone: 'Europe/kiev',
+              },
+            )} :))`,
+            { parse_mode: 'Markdown' },
+          );
+          setTimeout(async () => {
+            await bot.deleteMessage(chatId, message.message_id.toString());
+          }, 60000);
+        }
 
         await bot.deleteMessage(chatId, callbackQuery.message.message_id);
         await bot.answerCallbackQuery(callbackQuery.id, {
@@ -88,6 +72,21 @@ export class AppService {
       await bot.deleteMessage(chatId, msgId).catch((err) => {
         return err;
       });
+      const chatMember = await bot.getChatMember(chatId, userId);
+      if (chatMember.status !== 'member') {
+        const message = await bot.sendMessage(
+          chatId,
+          `${makeRawUserIdLink(
+            getFullUserName(msg.from),
+            msg.from.id,
+          )}, ви - Адміністратор, ви маєте страждати 😈`,
+          { parse_mode: 'Markdown' },
+        );
+        setTimeout(async () => {
+          await bot.deleteMessage(chatId, message.message_id.toString());
+        }, 60000);
+        return;
+      }
 
       if (!arg[2] || +arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] <= 0) {
         const message = await bot.sendMessage(
