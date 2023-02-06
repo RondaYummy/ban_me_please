@@ -1,7 +1,7 @@
 export function getFullUserName(user) {
   let name = user.first_name;
   if (user.last_name) {
-    name += `${user.last_name}`;
+    name += ` ${user.last_name}`;
   }
   return name;
 }
