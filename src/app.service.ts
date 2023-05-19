@@ -88,13 +88,13 @@ export class AppService {
         return;
       }
 
-      if (!arg[2] || +arg[2] % 3 > 0 || +arg[2] > 168 || +arg[2] <= 0) {
+      if (!arg[2] || +arg[2] % 3 > 0 || +arg[2] > 720 || +arg[2] <= 0) {
         const message = await bot.sendMessage(
           chatId,
           `${makeRawUserIdLink(
             getFullUserName(msg.from),
             msg.from.id,
-          )}, число має бути кратним 3 та меншим або дорівнювати 168.`,
+          )}, число має бути кратним 3 та меншим або дорівнювати 720.`,
           { parse_mode: 'Markdown' },
         );
         setTimeout(async () => {
@@ -107,7 +107,7 @@ export class AppService {
       let date = Math.round(new Date().getTime() / 1000.0);
       date += Number(hour * +arg[2]);
 
-      const confirmKeyboard = await bot.sendMessage(
+      await bot.sendMessage(
         chatId,
         `${getFullUserName(
           msg.from,

@@ -6,7 +6,7 @@
 
 A simple Telegram bot that will help you get "mute" for the time specified by the /ro command.
 For example: /ro3 - Silence for 3 hours.
-The number must be a multiple of 3. From 3 to 168 inclusive.
+The number must be a multiple of 3. From 3 to 720 inclusive.
 
 ## Installation
 
