@@ -54,7 +54,7 @@ export class AppService {
             { parse_mode: 'Markdown' },
           );
           setTimeout(async () => {
-            await bot.deleteMessage(chatId, message.message_id.toString());
+            await bot.deleteMessage(chatId, message.message_id);
           }, 60000);
         }
 
@@ -83,7 +83,7 @@ export class AppService {
           { parse_mode: 'Markdown' },
         );
         setTimeout(async () => {
-          await bot.deleteMessage(chatId, message.message_id.toString());
+          await bot.deleteMessage(chatId, message.message_id);
         }, 60000);
         return;
       }
@@ -98,7 +98,7 @@ export class AppService {
           { parse_mode: 'Markdown' },
         );
         setTimeout(async () => {
-          await bot.deleteMessage(chatId, message.message_id.toString());
+          await bot.deleteMessage(chatId, message.message_id);
         }, 60000);
         return;
       }
