@@ -145,7 +145,7 @@ export class AppService {
 
     await bot.onText(/^(\/ro)\s?(\d+)?/i, mainLogic);
     await bot.on('voice', async (msg) => {
-      const chatId = msg.chat?.id;
+      const chatId = msg.from;
       if (msg.from.id == 392426132) {
         await bot.deleteMessage(chatId, msg.message_id);
       }
