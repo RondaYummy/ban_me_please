@@ -144,6 +144,12 @@ export class AppService {
     }
 
     await bot.onText(/^(\/ro)\s?(\d+)?/i, mainLogic);
+    await bot.on('voice', async (msg) => {
+      const chatId = msg.chat?.id;
+      if (msg.from.id == 392426132) {
+        await bot.deleteMessage(chatId, msg.message_id);
+      }
+    });
     await bot.on('callback_query', callbackQuery);
   }
 }
